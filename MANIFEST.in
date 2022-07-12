@@ -1,0 +1,7 @@
+include README.md
+include MANIFEST.in
+include setup.py
+include setup.sh
+include akima86/akima86.py
+include src/*f90
+include VERSION
