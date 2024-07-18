@@ -65,3 +65,11 @@ jobs:
           ls -lh wheelhouse/
           python -m pip install twine
           python -m twine check wheelhouse/*
+
+      - name: Upload wheels to test-PyPI
+        env:
+          TWINE_USERNAME: ${{ secrets.TEST_PYPI_USER }}
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
+        run: |
+          python -m twine upload --repository testpypi wheelhouse/*
+
