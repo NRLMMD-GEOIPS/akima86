@@ -73,3 +73,9 @@ jobs:
         run: |
           python -m twine upload --repository testpypi wheelhouse/*
 
+      - name: Upload wheels to PyPI
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USER }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python -m twine upload wheelhouse/*
