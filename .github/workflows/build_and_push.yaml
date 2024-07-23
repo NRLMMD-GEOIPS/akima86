@@ -66,13 +66,13 @@ jobs:
           python -m pip install twine
           python -m twine check wheelhouse/*
 
-      - name: Check if version exists on test-PyPI
-        id: test_pypi_check_version
-        run: |
-          VERSION=$(python setup.py --version)
-          PACKAGE_NAME=$(python setup.py --name)
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://test.pypi.org/pypi/$PACKAGE_NAME/$VERSION/json)
-          echo "response=$RESPONSE" >> $GITHUB_ENV
+      # - name: Check if version exists on test-PyPI
+      #   id: test_pypi_check_version
+      #   run: |
+      #     VERSION=$(python setup.py --version)
+      #     PACKAGE_NAME=$(python setup.py --name)
+      #     RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://test.pypi.org/pypi/$PACKAGE_NAME/$VERSION/json)
+      #     echo "response=$RESPONSE" >> $GITHUB_ENV
 
       - name: Upload wheels to test-PyPI
         if: env.response != '200'
@@ -80,7 +80,7 @@ jobs:
           TWINE_USERNAME: ${{ secrets.TEST_PYPI_USER }}
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
         run: |
-          python -m twine upload --repository testpypi wheelhouse/*
+          python -m twine upload --repository testpypi --skip-existing wheelhouse/*
 
       # - name: Check if version exists on PyPI
       #   id: pypi_check_version
@@ -90,10 +90,10 @@ jobs:
       #     RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/pypi/$PACKAGE_NAME/$VERSION/json)
       #     echo "response=$RESPONSE" >> $GITHUB_ENV
 
-      # - name: Upload wheels to PyPI
-      #   if: env.response != '200'
-      #   env:
-      #     TWINE_USERNAME: ${{ secrets.PYPI_USER }}
-      #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      #   run: |
-      #     python -m twine upload wheelhouse/*
+      - name: Upload wheels to PyPI
+        if: env.response != '200'
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USER }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python -m twine upload wheelhouse/*
