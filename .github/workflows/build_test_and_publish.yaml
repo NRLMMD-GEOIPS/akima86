@@ -23,7 +23,7 @@ jobs:
       - name: Build and Test Wheels
         run: cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BUILD: ${{ matrix-python-version }}-manylinux_x86_64
+          CIBW_BUILD: ${{ matrix.python-version }}-manylinux_x86_64
           CIBW_ENVIRONMENT: >
             F90=gfortran
             F77=gfortran
