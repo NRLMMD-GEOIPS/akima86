@@ -59,6 +59,6 @@ jobs:
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
-          user: ${{ PYPI_USER }}
+          user: ${{ secrets.PYPI_USER }}
           password: ${{ secrets.PYPI_PASSWORD }}
           packages_dir: all_wheels
