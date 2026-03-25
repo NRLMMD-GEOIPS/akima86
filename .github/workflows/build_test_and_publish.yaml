@@ -3,22 +3,29 @@
 name: Build Push and Publish
 
 on:
-  push:
-    branches:
-      - '**'
+  # Triggers the workflow on published release
   release:
     types:
      - published
+  # Allows run of this workflow manually from the Actions tab
+  # Must be merged to default before it will be available to manually run.
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNNER_DOCKERRUN || vars.RUNNER) }}
     strategy:
       matrix:
         python-version: ['cp38', 'cp39', 'cp310', 'cp311', 'cp312', 'cp313']
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          check-latest: true     
 
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
@@ -45,7 +52,7 @@ jobs:
   publish:
     if: github.event_name == 'release' && github.event.action == 'published'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNNER) }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

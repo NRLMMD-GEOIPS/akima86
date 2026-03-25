@@ -1,0 +1,16 @@
+bug fix:
+- description: |
+    Duplication of https://github.com/NRLMMD-GEOIPS/akima86/pull/4 made by jsolbrig
+
+    distutils has been deprecated since NumPy 1.26.x
+    Use the Meson backend instead, or generate wrapperswithout -c and use a
+    custom build script. This PR uses changes made by jsolbrig on github.com
+    that uses the Meson backend to build akima86
+  files:
+    added:
+    - meson.build
+    modified:
+    - setup.py
+  related-issue:
+    internal: akima86#9 - meson backend
+  title: Update to use meson rather than distutils for fortran extension

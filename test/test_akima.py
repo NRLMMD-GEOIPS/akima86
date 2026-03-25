@@ -1,32 +1,7 @@
-# # # Distribution Statement A. Approved for public release. Distribution unlimited.
-# # #
-# # # Author:
-# # # Naval Research Laboratory, Marine Meteorology Division
-# # #
-# # # This program is free software:
-# # # you can redistribute it and/or modify it under the terms
-# # # of the NRLMMD License included with this program.
-# # #
-# # # If you did not receive the license, see
-# # # https://github.com/U-S-NRL-Marine-Meteorology-Division/
-# # # for more information.
-# # #
-# # # This program is distributed WITHOUT ANY WARRANTY;
-# # # without even the implied warranty of MERCHANTABILITY
-# # # or FITNESS FOR A PARTICULAR PURPOSE.
-# # # See the included license for more details.
+# # # This source code is subject to the license referenced at
+# # # https://github.com/NRLMMD-GEOIPS.
 
-# Author:
-#    Naval Research Laboratory, Marine Meteorology Division
-#
-# This program is free software: you can redistribute it and/or modify it under
-# the terms of the NRLMMD License included with this program.  If you did not
-# receive the license, see http://www.nrlmry.navy.mil/<LICENSE_INFO> for more
-# information.
-# This program is distributed WITHOUT ANY WARRANTY; without even the implied
-# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# included license for more details.
-#!/usr/bin/env python3
+"""Akima86 test script."""
 
 from akima86 import akima86
 import numpy as np
@@ -38,15 +13,17 @@ try:
     import matplotlib.pyplot as plt
 
     plotfig = True
-except:
+except Exception:
     plotfig = False
 
 
 def trunc(values, decs=0):
+    """Truncate values."""
     return np.trunc(values * 10**decs) / (10**decs)
 
 
 def test_threshold(norm, goal):
+    """Check if value is close to goal."""
     if np.isclose(norm, goal):
         print(f"SUCCESS {norm}")
     else:

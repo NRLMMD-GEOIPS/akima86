@@ -1,0 +1,53 @@
+bug fixes:
+- title: Finalize build_test_and_publish.yaml CI
+  description: |
+    * use vars.RUNNER_DOCKERRUN || vars.RUNNER for docker-based build (cibuildwheel) step
+    * use vars.RUNNER vs ubuntu-latest for publish step
+    * use fromJSON for vars runner specifications to allow lists in org variables.
+    * Add setup Python to build step to ensure python exists on runner.
+    * Do not run on every push to every branch (only on published release)
+
+    Note build_test_and_publish.yaml will need to be consolidated with
+    package-and-publish. We will want to add this functionality to the
+    reusable package-and-publish workflow in the geoips_ci repo, and remove the
+    one-off build_test_and_publish.yaml workflow.  Currently package_and_publish.yaml
+    will not work for fortran repositories, so this extra workflow was added
+    temporarily to allow this repo to build properly.
+  files:
+    added:
+    - docs/source/releases/1.18.0/1.18.0-patch-internal-build-test-publish-fixes.yaml
+    modified:
+    - .github/workflows/build_test_and_publish.yaml
+  date:
+    start: 2026-03-18
+    finish: 2026-03-18
+  related-issue:
+    internal: geoips#1029 - 1.18.0 updates
+- title: Remove unused files
+  description: |
+    * Removed old standard package files no longer needed.
+  files:
+    deleted:
+    - VERSION
+    - CHANGELOG.md
+    - setup.py
+    - setup.sh
+  date:
+    start: 2026-03-18
+    finish: 2026-03-18
+  related-issue:
+    internal: geoips#1029 - 1.18.0 updates
+- title: flake8 and black updates
+  description: |
+    * Standard geoips linting now passes.
+  files:
+    modified:
+    - akima86/__init__.py
+    - akima86/akima86.py
+    - test/test_akima.py
+    - test/__init__.py
+  date:
+    start: 2026-03-18
+    finish: 2026-03-18
+  related-issue:
+    internal: geoips#1029 - 1.18.0 updates

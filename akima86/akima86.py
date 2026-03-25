@@ -1,40 +1,14 @@
-# # # Distribution Statement A. Approved for public release. Distribution unlimited.
-# # #
-# # # Author:
-# # # Naval Research Laboratory, Marine Meteorology Division
-# # #
-# # # This program is free software:
-# # # you can redistribute it and/or modify it under the terms
-# # # of the NRLMMD License included with this program.
-# # #
-# # # If you did not receive the license, see
-# # # https://github.com/U-S-NRL-Marine-Meteorology-Division/
-# # # for more information.
-# # #
-# # # This program is distributed WITHOUT ANY WARRANTY;
-# # # without even the implied warranty of MERCHANTABILITY
-# # # or FITNESS FOR A PARTICULAR PURPOSE.
-# # # See the included license for more details.
+# # # This source code is subject to the license referenced at
+# # # https://github.com/NRLMMD-GEOIPS.
 
-# Author:
-#    Naval Research Laboratory, Marine Meteorology Division
-#
-# This program is free software: you can redistribute it and/or modify it under
-# the terms of the NRLMMD License included with this program.  If you did not
-# receive the license, see http://www.nrlmry.navy.mil/<LICENSE_INFO> for more
-# information.
-# This program is distributed WITHOUT ANY WARRANTY; without even the implied
-# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# included license for more details.
-#!/usr/bin/env python3
+"""Akima86 interpolation routine."""
 
 import numpy as np
 from .uvipia_omp import uvipia
 
 
 def interpolate(xd, yd, xi, degree=3):
-    """
-    Python wrapper for the Improved Akima method from Akima (1986).
+    """Python wrapper for the Improved Akima method from Akima (1986).
 
     Parameters
     ----------
@@ -55,7 +29,7 @@ def interpolate(xd, yd, xi, degree=3):
     yi : Numpy ndarray
         Numpy array of output y coordinates, same length as xi.
 
-    NOTES
+    Notes
     -----
     - In the UVIPIA Fortran code, any polynomial orders less than 3
       are automatically set to 3.
@@ -99,6 +73,7 @@ def interpolate(xd, yd, xi, degree=3):
 
 
 def main():
+    """Akima86 interpolation routine."""
     import matplotlib as mpl
 
     mpl.use("Agg")

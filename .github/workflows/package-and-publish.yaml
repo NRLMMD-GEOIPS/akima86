@@ -1,0 +1,34 @@
+name: Package/publish
+
+# 1. Tag and Release - on merge of v*-version-release
+#    * Tag current version
+#    * Release just tagged version
+# 2. Package and Publish - on published release (from #1)
+#    * Build wheel
+#    * Publish to pypi
+# 3. Deploy docs - on published release (from #1)
+#    * pip install geoips
+#    * pip install plugin repo
+#    * build docs with geoips/docs/build_docs.sh
+#    * deploy docs with geoips/docs/deploy_pages.sh
+
+on:
+  # triggers the workflow on published release
+  release:
+    types:
+      - published
+  # allows run of this workflow manually from the actions tab
+  # must be merged to default before it will be available to manually run.
+  workflow_dispatch:
+
+jobs:
+  package-publish:
+    name: Package/publish
+    # You do not appear to be able to use variables in the "uses" field.
+    uses: NRLMMD-GEOIPS/geoips_ci/.github/workflows/reusable-package-and-publish.yaml@main
+    permissions:
+      contents: read
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+      pypi_user: ${{ secrets.PYPI_USER }}
+      pypi_password: ${{ secrets.PYPI_PASSWORD }}

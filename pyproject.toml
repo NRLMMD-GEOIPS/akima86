@@ -4,7 +4,7 @@ build-backend = "mesonpy"
 
 [project]
 name = "akima86"
-version = "0.1.1"
+version = "1.18.0"
 description = "Improved Akima 1-D Interpolation Method"
 authors = [
     {name = "David Ryglicki", email = "david.ryglicki@gmail.com"},
