@@ -66,14 +66,9 @@ jobs:
         with:
           path: dist
 
-      - name: Extract all wheels
-        run: |
-          mkdir -p all_wheels
-          find dist -name '*.tar.gz' -exec tar -xzf {} -C all_wheels \;
-
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.5.0
         with:
           user: ${{ secrets.PYPI_USER }}
           password: ${{ secrets.PYPI_PASSWORD }}
-          packages_dir: all_wheels
+          packages_dir: dist
