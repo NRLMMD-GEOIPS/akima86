@@ -13,19 +13,13 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ fromJSON(vars.RUNNER_DOCKERRUN || vars.RUNNER) }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ['cp38', 'cp39', 'cp310', 'cp311', 'cp312', 'cp313']
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-          check-latest: true     
 
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
@@ -52,7 +46,7 @@ jobs:
   publish:
     if: github.event_name == 'release' && github.event.action == 'published'
     needs: build
-    runs-on: ${{ fromJSON(vars.RUNNER) }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
